@@ -1,7 +1,7 @@
 const express = require('express');
 
 const PORT = process.env.PORT || 5000;
-const DELAY = 2000;
+const DELAY = 31000;
 
 const app = express();
 
