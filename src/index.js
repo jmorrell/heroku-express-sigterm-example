@@ -1,13 +1,27 @@
-#!/usr/bin/env node
+const express = require('express');
 
-const http = require('http')
+const PORT = process.env.PORT || 5000;
 
-const PORT = process.env.PORT || 5000
+const app = express();
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/plain')
-  res.end(`Hello, world!\n`)
-})
+app.get('/', (req, res) => {
+  console.log(req);
 
-server.listen(PORT, () => console.log(`Listening on ${PORT}`))
+  setTimeout(() => {
+    res.send('Hello world');
+  }, 1000);
+});
+
+const server = app.listen(PORT, () => {
+  console.log('Server listening!');
+});
+
+process.on('SIGTERM', () => {
+  console.log('SIGTERM RECEIVED');
+  console.log('Shutting down express server');
+
+  server.close(() => {
+    console.log('Express server closed. Exiting the process.');
+    process.exit(0);
+  });
+});
