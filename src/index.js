@@ -1,15 +1,14 @@
 const express = require('express');
 
 const PORT = process.env.PORT || 5000;
+const DELAY = 2000;
 
 const app = express();
 
 app.get('/', (req, res) => {
   console.log(`Received request: ${req.headers['x-request-id']}`);
 
-  setTimeout(() => {
-    res.send('Hello world');
-  }, 1000);
+  setTimeout(() => res.send('Hello world'), DELAY);
 });
 
 const server = app.listen(PORT, () => {
